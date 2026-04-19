@@ -8,526 +8,426 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ─────────────────────────────────────────────
-       THEME TOKENS
-       Glass values mirror .glassEffect() properties:
-         --glass-blur     → blur radius
-         --glass-sat      → backdrop saturation
-         --glass-bg       → translucent fill
-         --glass-border   → highlight rim
-         --glass-tint-*   → .tint(Color) equivalents
-    ───────────────────────────────────────────── */
+    /* ── TOKENS ── */
     :root {
-      /* Background mesh */
-      --mesh-a: #ddd5f5;
-      --mesh-b: #f0e8e0;
-      --orb1: rgba(160,120,240,0.38);
-      --orb2: rgba(210,180,255,0.28);
-      --orb3: rgba(240,210,200,0.22);
-
-      /* Glass surface — equivalent to .glassEffect(.regular) */
-      --glass-blur: 28px;
-      --glass-sat:  1.7;
-      --glass-bg:   rgba(255,255,255,0.50);
-      --glass-border: rgba(255,255,255,0.78);
-      --glass-shadow: 0 8px 48px rgba(120,80,200,0.10), 0 1px 0 rgba(255,255,255,0.6) inset;
-
-      /* Panel inside glass — slightly more opaque */
-      --panel-bg:     rgba(255,255,255,0.34);
-      --panel-border: rgba(255,255,255,0.60);
-
-      /* Tinted glass — .glassEffect(.regular.tint(Color)) */
-      --tint-accent-bg:  rgba(130,90,220,0.14);
-      --tint-accent-rim: rgba(140,100,230,0.30);
-      --tint-green-bg:   rgba(50,180,100,0.16);
-      --tint-green-rim:  rgba(50,180,100,0.28);
-      --tint-amber-bg:   rgba(200,150,30,0.15);
-      --tint-amber-rim:  rgba(200,150,30,0.28);
-      --tint-red-bg:     rgba(210,60,60,0.13);
-      --tint-red-rim:    rgba(210,60,60,0.26);
-
-      /* Interactive glass — .interactive() hover brightening */
-      --interactive-hover-scale: 1.025;
-      --interactive-hover-bg:    rgba(255,255,255,0.68);
-
-      /* Typography */
-      --text-primary:   #160f2a;
-      --text-secondary: #5a4e72;
-      --text-muted:     #9b8cb4;
-      --text-on-accent: #ffffff;
-
-      /* Accent */
-      --accent:       #7c50d6;
-      --accent-glow:  rgba(124,80,214,0.35);
-
-      /* Divider */
-      --divider: rgba(160,130,220,0.20);
-
-      /* Scrollbar */
-      --scrollbar: rgba(130,90,220,0.22);
-
-      /* Textarea */
-      --ta-bg:    rgba(255,255,255,0.50);
-      --ta-color: #160f2a;
-
-      /* Badge text (tinted capsules) */
-      --badge-proc-txt: #7a5800;
-      --badge-done-txt: #1a6b3a;
-      --badge-err-txt:  #8b1a1a;
+      --accent:       #6030c8;
+      --accent-dark:  #4a22a0;
+      --accent-light: #ede8fb;
+      --accent-mid:   #7c50d6;
+      --white:        #ffffff;
+      --gray-50:      #f7f7f9;
+      --gray-100:     #efeff3;
+      --gray-200:     #dddde6;
+      --gray-400:     #9898b0;
+      --gray-600:     #5a5a78;
+      --gray-900:     #18182a;
+      --green:        #18a058;
+      --amber:        #c07000;
+      --red:          #c02828;
+      --shadow-card:  0 24px 80px rgba(0,0,0,0.38), 0 4px 16px rgba(0,0,0,0.22);
+      --shadow-btn:   0 2px 8px rgba(96,48,200,0.28);
+      --radius-card:  20px;
+      --radius-input: 10px;
+      --radius-btn:   10px;
     }
 
     [data-theme="dark"] {
-      --mesh-a: #0e0a1c;
-      --mesh-b: #1a1030;
-      --orb1: rgba(110,60,210,0.45);
-      --orb2: rgba(70,40,170,0.32);
-      --orb3: rgba(160,80,255,0.22);
-
-      --glass-bg:     rgba(22,14,44,0.58);
-      --glass-border: rgba(255,255,255,0.10);
-      --glass-shadow: 0 8px 48px rgba(60,20,140,0.35), 0 1px 0 rgba(255,255,255,0.06) inset;
-
-      --panel-bg:     rgba(18,10,36,0.52);
-      --panel-border: rgba(255,255,255,0.07);
-
-      --tint-accent-bg:  rgba(160,110,255,0.18);
-      --tint-accent-rim: rgba(160,110,255,0.30);
-      --tint-green-bg:   rgba(50,180,100,0.18);
-      --tint-green-rim:  rgba(70,200,120,0.28);
-      --tint-amber-bg:   rgba(210,160,30,0.18);
-      --tint-amber-rim:  rgba(220,170,40,0.28);
-      --tint-red-bg:     rgba(220,70,70,0.18);
-      --tint-red-rim:    rgba(230,80,80,0.28);
-
-      --interactive-hover-bg: rgba(40,22,70,0.72);
-
-      --text-primary:   #f0eaff;
-      --text-secondary: #c0aee0;
-      --text-muted:     #7a6898;
-      --text-on-accent: #ffffff;
-
-      --accent:      #b080ff;
-      --accent-glow: rgba(160,100,255,0.4);
-
-      --divider: rgba(120,80,200,0.22);
-      --scrollbar: rgba(160,100,255,0.22);
-
-      --ta-bg:    rgba(14,8,30,0.55);
-      --ta-color: #e8e0f8;
-
-      --badge-proc-txt: #f0c860;
-      --badge-done-txt: #70e0a0;
-      --badge-err-txt:  #f08080;
+      --white:        #1e1830;
+      --gray-50:      #221c38;
+      --gray-100:     #2a2244;
+      --gray-200:     #342a52;
+      --gray-400:     #8070a8;
+      --gray-600:     #b0a0d0;
+      --gray-900:     #f0eaff;
+      --accent-light: #2e2050;
+      --shadow-card:  0 24px 80px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4);
     }
 
     html, body { height: 100%; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
-      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      min-height: 100%;
+      /* BG.jpg with dark scrim so the card pops */
+      background: url('BG.jpg') center center / cover no-repeat fixed;
+      transition: color 0.3s;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: rgba(8, 4, 20, 0.52);
+      pointer-events: none;
+      transition: background 0.3s;
+    }
+
+    [data-theme="dark"] body::before { background: rgba(4, 2, 12, 0.68); }
+
+    /* ── RAISED MODAL CARD ── */
+    .card {
+      position: relative;
+      width: 100%; max-width: 1160px;
+      height: clamp(560px, 82vh, 780px);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* ── LEFT PANEL — clean white ── */
+    #left {
+      width: 48%;
+      background: var(--white);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      transition: color 0.4s;
+      transition: background 0.3s;
     }
 
-    /* ─────────────────────────────────────────────
-       ANIMATED MESH BACKGROUND
-    ───────────────────────────────────────────── */
-    #bg {
-      position: fixed; inset: 0; z-index: 0;
-      background: linear-gradient(145deg, var(--mesh-a) 0%, var(--mesh-b) 100%);
-      transition: background 0.5s;
-    }
-    .orb {
-      position: absolute; border-radius: 50%;
-      filter: blur(90px); pointer-events: none;
-      transition: background 0.5s;
-    }
-    .orb-1 { width:560px; height:560px; top:-180px; left:-140px; background:var(--orb1); animation:drift1 20s ease-in-out infinite alternate; }
-    .orb-2 { width:440px; height:440px; bottom:-120px; right:-100px; background:var(--orb2); animation:drift2 25s ease-in-out infinite alternate; }
-    .orb-3 { width:320px; height:320px; top:38%; left:42%; background:var(--orb3); animation:drift3 17s ease-in-out infinite alternate; }
-    @keyframes drift1 { to { transform: translate(70px,90px) scale(1.1); } }
-    @keyframes drift2 { to { transform: translate(-60px,-70px) scale(1.12); } }
-    @keyframes drift3 { to { transform: translate(50px,-60px) scale(0.9); } }
-
-    /* ─────────────────────────────────────────────
-       GLASS SURFACE MIXIN
-       Mirrors .glassEffect(.regular) in SwiftUI
-    ───────────────────────────────────────────── */
-    .glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
-    }
-
-    /* .glassEffect(.regular.interactive()) — scale + brighten on hover */
-    .glass-interactive {
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
-    }
-    .glass-interactive:hover {
-      background: var(--interactive-hover-bg);
-      transform: scale(var(--interactive-hover-scale));
-      box-shadow: var(--glass-shadow), 0 0 0 1.5px var(--accent-glow);
-    }
-    .glass-interactive:active { transform: scale(0.975); }
-
-    /* Tinted glass variants — .tint(Color) */
-    .tint-accent { background: var(--tint-accent-bg) !important; border-color: var(--tint-accent-rim) !important; }
-    .tint-green  { background: var(--tint-green-bg)  !important; border-color: var(--tint-green-rim)  !important; }
-    .tint-amber  { background: var(--tint-amber-bg)  !important; border-color: var(--tint-amber-rim)  !important; }
-    .tint-red    { background: var(--tint-red-bg)    !important; border-color: var(--tint-red-rim)    !important; }
-
-    /* ─────────────────────────────────────────────
-       HEADER
-    ───────────────────────────────────────────── */
-    header {
-      position: relative; z-index: 10;
-      padding: 12px 20px;
-      display: flex; align-items: center; gap: 10px;
-      border-bottom: 1px solid var(--divider);
-    }
-
-    .logo-pill {
-      display: flex; align-items: center; gap: 8px;
-      padding: 6px 14px 6px 8px;
-      border-radius: 999px; /* capsule — default glassEffect shape */
-    }
-
-    .logo-icon {
-      width: 28px; height: 28px;
-      background: linear-gradient(135deg, #a06fff 0%, #6030c0 100%);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 10px rgba(100,50,200,0.45);
-      flex-shrink: 0;
-    }
-
-    header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.4px; color: var(--text-primary); transition: color 0.4s; }
-
-    .tagline { font-size: 12px; color: var(--text-muted); margin-right: auto; transition: color 0.4s; }
-
-    /* GlassEffectContainer nav — capsule pill with spacing */
-    #header-actions {
-      display: flex; align-items: center; gap: 8px;
-      padding: 5px 6px;
-      border-radius: 999px; /* container capsule */
-    }
-
-    /* .buttonStyle(.glass) */
-    .btn-glass {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px) saturate(1.6);
-      -webkit-backdrop-filter: blur(16px) saturate(1.6);
-      font-size: 12px; font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1), color 0.4s;
-      letter-spacing: 0.1px; white-space: nowrap;
-    }
-    .btn-glass:hover { background: var(--interactive-hover-bg); transform: scale(1.03); }
-    .btn-glass:active { transform: scale(0.96); }
-
-    /* .buttonStyle(.glassProminent) — tinted accent */
-    .btn-glass-prominent {
-      background: var(--tint-accent-bg);
-      border-color: var(--tint-accent-rim);
-      color: var(--accent);
-    }
-    .btn-glass-prominent:hover { background: var(--tint-accent-rim); }
-
-    /* ─────────────────────────────────────────────
-       LAYOUT
-    ───────────────────────────────────────────── */
-    main {
-      position: relative; z-index: 1;
-      display: flex; flex: 1; overflow: hidden;
-      gap: 14px; padding: 14px;
-    }
-
-    /* GlassEffectContainer panel — groups child glass elements */
-    .glass-panel {
-      border-radius: 22px;
+    /* ── RIGHT PANEL — solid accent ── */
+    #right {
+      width: 52%;
+      background: var(--accent);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
-      display: flex; flex-direction: column;
+      position: relative;
     }
 
-    #left  { width: 50%; }
-    #right { width: 50%; }
+    /* Subtle radial glow inside right panel (like the circle in reference) */
+    #right::before {
+      content: '';
+      position: absolute;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-    .panel-header {
-      padding: 13px 18px 11px;
-      border-bottom: 1px solid var(--divider);
+    /* ── PANEL HEADERS ── */
+    .panel-top {
+      padding: 22px 28px 16px;
       display: flex; align-items: center; justify-content: space-between;
       flex-shrink: 0;
+      border-bottom: 1px solid var(--gray-100);
+      transition: border-color 0.3s;
     }
 
-    .panel-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
-      text-transform: uppercase; color: var(--text-muted);
-      transition: color 0.4s;
-    }
+    [data-theme="dark"] .panel-top { border-color: var(--gray-200); }
 
-    /* ─────────────────────────────────────────────
-       DROP ZONE
-       .glassEffect(.regular.interactive()) with dashed rim
-    ───────────────────────────────────────────── */
-    #drop-zone {
-      margin: 13px;
-      border: 1.5px dashed var(--tint-accent-rim);
-      border-radius: 16px;
-      padding: 26px 20px;
-      text-align: center;
-      background: var(--tint-accent-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      cursor: pointer;
+    .right-top {
+      padding: 22px 28px 16px;
+      display: flex; align-items: center; justify-content: space-between;
       flex-shrink: 0;
-      transition: border-color 0.2s, background 0.2s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    /* Logo */
+    .logo {
+      display: flex; align-items: center; gap: 9px;
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-name {
+      font-size: 16px; font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--gray-900);
+      transition: color 0.3s;
+    }
+
+    /* Theme toggle */
+    .theme-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      border: 1.5px solid var(--gray-200);
+      background: var(--gray-50);
+      font-size: 11px; font-weight: 700;
+      color: var(--gray-600);
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      transition: background 0.15s, border-color 0.15s, color 0.3s, transform 0.15s;
+    }
+    .theme-btn:hover { background: var(--gray-100); transform: scale(1.04); }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      padding: 20px 28px 0;
+      flex-shrink: 0;
+    }
+    .section-title h2 {
+      font-size: 22px; font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--gray-900);
+      transition: color 0.3s;
+    }
+    .section-title p {
+      font-size: 13px; color: var(--gray-400);
+      margin-top: 4px; line-height: 1.5;
+      transition: color 0.3s;
+    }
+
+    /* ── DROP ZONE ── */
+    #drop-zone {
+      margin: 16px 28px;
+      border: 1.5px dashed var(--gray-200);
+      border-radius: 12px;
+      padding: 22px 16px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--gray-50);
+      flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s, transform 0.18s;
     }
     #drop-zone:hover, #drop-zone.drag-over {
-      border-color: var(--accent);
-      background: var(--tint-accent-rim);
-      transform: scale(1.012);
+      border-color: var(--accent-mid);
+      background: var(--accent-light);
+      transform: scale(1.01);
     }
-    #drop-zone:active { transform: scale(0.99); }
 
-    .upload-orb {
-      width: 48px; height: 48px;
-      border-radius: 14px;
+    .upload-icon-wrap {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: var(--accent-light);
+      border: 1.5px solid var(--gray-200);
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 13px;
-      border: 1px solid var(--tint-accent-rim);
-      background: var(--tint-accent-bg);
+      margin: 0 auto 11px;
+      transition: background 0.2s;
     }
+    #drop-zone:hover .upload-icon-wrap { background: rgba(124,80,214,0.18); }
 
-    #drop-zone p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; transition: color 0.4s; }
+    #drop-zone p { font-size: 13px; color: var(--gray-600); line-height: 1.65; transition: color 0.3s; }
     #drop-zone strong { color: var(--accent); font-weight: 700; }
-    .drop-hint { font-size: 11px; margin-top: 5px; color: var(--text-muted); transition: color 0.4s; }
+    .drop-hint { font-size: 11px; margin-top: 4px; color: var(--gray-400); transition: color 0.3s; }
     #drop-zone input { display: none; }
 
-    /* ─────────────────────────────────────────────
-       IMAGE LIST + CARDS
-    ───────────────────────────────────────────── */
+    /* ── IMAGE LIST ── */
     #image-list {
       flex: 1; overflow-y: auto;
-      padding: 0 13px 13px;
+      padding: 0 28px 20px;
       display: flex; flex-direction: column; gap: 10px;
     }
 
-    /* Morphing card entrance — @starting-style equivalent via keyframe */
     @keyframes cardIn {
-      from { opacity: 0; transform: scale(0.94) translateY(8px); filter: blur(4px); }
-      to   { opacity: 1; transform: scale(1)    translateY(0);   filter: blur(0); }
+      from { opacity:0; transform:translateY(8px) scale(0.97); }
+      to   { opacity:1; transform:translateY(0)   scale(1); }
     }
 
     .image-card {
-      border-radius: 16px; overflow: hidden;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      backdrop-filter: blur(14px) saturate(1.5);
-      -webkit-backdrop-filter: blur(14px) saturate(1.5);
-      animation: cardIn 0.38s cubic-bezier(0.34,1.4,0.64,1) both;
-      transition: background 0.4s, border-color 0.4s;
+      border-radius: 12px; overflow: hidden;
+      border: 1.5px solid var(--gray-100);
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      animation: cardIn 0.32s cubic-bezier(0.34,1.4,0.64,1) both;
+      transition: background 0.3s, border-color 0.3s;
     }
+    [data-theme="dark"] .image-card { box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
 
-    .image-card img { width: 100%; max-height: 190px; object-fit: cover; display: block; }
+    .image-card img { width:100%; max-height:170px; object-fit:cover; display:block; }
 
     .card-footer {
       display: flex; align-items: center; justify-content: space-between;
       padding: 8px 12px;
-      font-size: 12px; color: var(--text-muted);
-      transition: color 0.4s;
+      font-size: 12px;
     }
-    .card-footer .filename { font-weight: 600; color: var(--text-primary); font-size: 12px; transition: color 0.4s; }
+    .filename { font-weight: 700; font-size: 12px; color: var(--gray-900); transition: color 0.3s; }
 
-    /* ─────────────────────────────────────────────
-       BADGES — tinted glass capsules (.regular.tint())
-    ───────────────────────────────────────────── */
+    /* ── BADGES ── */
     .badge {
       display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1px;
-      padding: 3px 11px; border-radius: 999px;
-      border: 1px solid transparent;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px;
+      border: 1.5px solid transparent;
     }
-    .badge.processing { background: var(--tint-amber-bg); border-color: var(--tint-amber-rim); color: var(--badge-proc-txt); }
-    .badge.done       { background: var(--tint-green-bg); border-color: var(--tint-green-rim); color: var(--badge-done-txt); }
-    .badge.error      { background: var(--tint-red-bg);   border-color: var(--tint-red-rim);   color: var(--badge-err-txt); }
+    .badge.processing { background: #fff8e6; border-color: #f0d080; color: var(--amber); }
+    .badge.done       { background: #e8faf0; border-color: #80d0a0; color: var(--green); }
+    .badge.error      { background: #fdeaea; border-color: #e89090; color: var(--red); }
 
-    /* ─────────────────────────────────────────────
-       LIQUID PROGRESS BAR
-    ───────────────────────────────────────────── */
-    .progress-wrap { height: 2px; background: var(--divider); }
+    [data-theme="dark"] .badge.processing { background: rgba(200,150,0,0.15); border-color: rgba(200,150,0,0.35); color: #f0c860; }
+    [data-theme="dark"] .badge.done       { background: rgba(30,160,80,0.15); border-color: rgba(50,180,100,0.35); color: #60d090; }
+    [data-theme="dark"] .badge.error      { background: rgba(200,50,50,0.15); border-color: rgba(200,80,80,0.35); color: #f07070; }
+
+    /* Progress bar */
+    .progress-wrap { height: 2px; background: var(--gray-100); }
+    [data-theme="dark"] .progress-wrap { background: var(--gray-200); }
     .progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, #a06fff, #6030c0, #a06fff);
-      background-size: 200% 100%;
-      transition: width 0.35s cubic-bezier(0.34,1.2,0.64,1);
-      animation: shimmer 2s linear infinite;
+      background: linear-gradient(90deg, var(--accent-mid), var(--accent));
+      transition: width 0.3s ease;
     }
-    @keyframes shimmer { to { background-position: -200% 0; } }
 
-    /* ─────────────────────────────────────────────
-       RIGHT PANEL — TEXT BLOCKS
-    ───────────────────────────────────────────── */
+    /* ── RIGHT PANEL CONTENT ── */
+    .right-label {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.9px;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+    }
+
+    /* Copy All — solid white button */
+    #copy-all-btn {
+      display: none;
+      align-items: center; gap: 6px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      font-size: 12px; font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      letter-spacing: 0.1px;
+    }
+    #copy-all-btn:hover { background: rgba(255,255,255,0.28); transform: scale(1.04); }
+
     #text-list {
       flex: 1; overflow-y: auto;
-      padding: 13px;
-      display: flex; flex-direction: column; gap: 12px;
+      padding: 12px 20px 20px;
+      display: flex; flex-direction: column; gap: 10px;
     }
 
+    /* Scrollbar — right panel */
+    #text-list::-webkit-scrollbar { width: 4px; }
+    #text-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.08); border-radius: 4px; }
+    #text-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 4px; }
+
+    #image-list::-webkit-scrollbar { width: 4px; }
+    #image-list::-webkit-scrollbar-track { background: var(--gray-100); border-radius: 4px; }
+    #image-list::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 4px; }
+
+    /* Empty state */
     .empty-state {
-      flex: 1;
-      display: flex; flex-direction: column;
+      flex: 1; display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      color: var(--text-muted); text-align: center; gap: 14px;
-      transition: color 0.4s;
+      gap: 14px; text-align: center; padding: 20px;
     }
-
-    .empty-orb {
-      width: 70px; height: 70px;
-      border-radius: 20px;
+    .empty-icon-wrap {
+      width: 68px; height: 68px; border-radius: 18px;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.2);
       display: flex; align-items: center; justify-content: center;
-      background: var(--tint-accent-bg);
-      border: 1px solid var(--tint-accent-rim);
     }
+    .empty-state p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.7; }
 
-    .empty-state p { font-size: 13px; line-height: 1.7; color: var(--text-muted); transition: color 0.4s; }
-
-    /* Text block — morphing entrance matching image card */
+    /* Text block */
     .text-block {
-      border-radius: 16px; overflow: hidden;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      backdrop-filter: blur(14px) saturate(1.5);
-      -webkit-backdrop-filter: blur(14px) saturate(1.5);
-      animation: cardIn 0.38s cubic-bezier(0.34,1.4,0.64,1) both;
-      transition: background 0.4s, border-color 0.4s;
+      border-radius: 12px; overflow: hidden;
+      background: rgba(255,255,255,0.10);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      animation: cardIn 0.32s cubic-bezier(0.34,1.4,0.64,1) both;
     }
 
     .block-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 9px 12px;
-      background: var(--tint-accent-bg);
-      border-bottom: 1px solid var(--divider);
-      font-size: 12px; color: var(--text-muted);
-      transition: background 0.4s, color 0.4s;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
     }
-    .block-name { font-weight: 700; font-size: 12px; color: var(--text-primary); transition: color 0.4s; }
+    .block-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); }
 
-    /* Copy button — .buttonStyle(.glass) capsule */
+    /* Copy button — outlined white capsule */
     .copy-btn {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1px;
-      padding: 4px 12px; border-radius: 999px;
-      border: 1px solid var(--tint-accent-rim);
-      background: var(--tint-accent-bg);
-      color: var(--accent);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      font-size: 11px; font-weight: 700;
+      padding: 3px 12px; border-radius: 999px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      background: transparent;
+      color: rgba(255,255,255,0.85);
       cursor: pointer;
-      transition: background 0.2s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
     }
-    .copy-btn:hover:not(:disabled) { background: var(--tint-accent-rim); transform: scale(1.05); }
-    .copy-btn:active:not(:disabled) { transform: scale(0.96); }
+    .copy-btn:hover:not(:disabled) { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); transform: scale(1.04); }
     .copy-btn:disabled { opacity: 0.35; cursor: default; }
-    .copy-btn.copied { background: var(--tint-green-bg); border-color: var(--tint-green-rim); color: var(--badge-done-txt); }
+    .copy-btn.copied { background: rgba(30,180,100,0.25); border-color: rgba(80,220,140,0.5); color: #a0ffcc; }
 
     textarea {
-      width: 100%; padding: 13px 14px;
+      width: 100%; padding: 11px 13px;
       font-size: 13px; font-family: "SF Mono","Fira Mono","Menlo",monospace;
-      line-height: 1.75; border: none; resize: vertical; min-height: 110px;
-      background: var(--ta-bg); color: var(--ta-color);
+      line-height: 1.7; border: none; resize: vertical; min-height: 100px;
+      background: transparent;
+      color: rgba(255,255,255,0.9);
       outline: none;
-      transition: background 0.4s, color 0.4s;
     }
+    textarea::placeholder { color: rgba(255,255,255,0.35); }
+    textarea::selection { background: rgba(255,255,255,0.2); }
 
     .processing-placeholder {
-      padding: 16px 14px; font-size: 13px;
-      color: var(--text-muted);
-      display: flex; align-items: center; gap: 10px;
-      transition: color 0.4s;
+      padding: 14px 13px; font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      display: flex; align-items: center; gap: 9px;
     }
 
-    /* ─────────────────────────────────────────────
-       SPINNER
-    ───────────────────────────────────────────── */
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner {
       width: 13px; height: 13px;
-      border: 2px solid var(--divider);
-      border-top-color: var(--accent);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: rgba(255,255,255,0.8);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       flex-shrink: 0;
     }
 
-    /* ─────────────────────────────────────────────
-       SCROLLBARS
-    ───────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 999px; }
+    /* Left-panel spinner (darker) */
+    .spinner-dark {
+      border-color: var(--gray-200);
+      border-top-color: var(--accent);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 28px; margin-bottom: 4px; flex-shrink: 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--gray-200); transition: background 0.3s; }
+    .divider-text { font-size: 11px; color: var(--gray-400); font-weight: 500; white-space: nowrap; transition: color 0.3s; }
   </style>
 </head>
 <body>
 
-<!-- Mesh background -->
-<div id="bg">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-</div>
+<!-- ── RAISED CARD ── -->
+<div class="card">
 
-<!-- ── HEADER — GlassEffectContainer capsule nav ── -->
-<header class="glass">
-  <!-- Logo pill — .glassEffect(in: .capsule) -->
-  <div class="logo-pill glass">
-    <div class="logo-icon">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M2 4.5h12M2 8h8M2 11.5h6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <h1>Picopy</h1>
-  </div>
+  <!-- ════════ LEFT — white panel ════════ -->
+  <div id="left">
 
-  <span class="tagline">Upload photos &rarr; Copy the text</span>
-
-  <!-- GlassEffectContainer for header actions (spacing=8) -->
-  <div id="header-actions" class="glass">
-    <!-- .buttonStyle(.glass) -->
-    <button class="btn-glass" id="theme-toggle">
-      <span id="theme-icon">☀️</span>
-      <span id="theme-label">Light</span>
-    </button>
-  </div>
-</header>
-
-<!-- ── MAIN ── -->
-<main>
-
-  <!-- LEFT — glass panel (GlassEffectContainer) -->
-  <div id="left" class="glass glass-panel">
-    <div class="panel-header">
-      <span class="panel-label">Photos</span>
+    <!-- Header -->
+    <div class="panel-top">
+      <div class="logo">
+        <div class="logo-mark">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 4.5h12M2 8h8M2 11.5h6" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="logo-name">Picopy</span>
+      </div>
+      <button class="theme-btn" id="theme-toggle">
+        <span id="theme-icon">☀️</span>
+        <span id="theme-label">Light</span>
+      </button>
     </div>
 
-    <!-- Drop zone — .glassEffect(.regular.interactive()) -->
-    <div id="drop-zone">
-      <div class="upload-orb">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="5" width="20" height="14" rx="3" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
-          <circle cx="9" cy="12" r="2.5" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
-          <path d="M2 16.5l6-5 4.5 4.5 4-3 5.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" style="color:var(--accent)"/>
+    <!-- Title -->
+    <div class="section-title">
+      <h2>Extract Text from Photos</h2>
+      <p>Upload one or more images — text is copied instantly.</p>
+    </div>
+
+    <!-- Drop zone -->
+    <div id="drop-zone" style="margin-top:14px">
+      <div class="upload-icon-wrap">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect x="2" y="5" width="18" height="13" rx="3" stroke="var(--accent)" stroke-width="1.5"/>
+          <circle cx="8.5" cy="11" r="2" stroke="var(--accent)" stroke-width="1.5"/>
+          <path d="M2 15.5l5.5-4.5 4 4 3-2.5 5.5 4" stroke="var(--accent)" stroke-width="1.5" stroke-linejoin="round"/>
         </svg>
       </div>
       <p>Drag &amp; drop photos here<br>or <strong id="browse-link">browse files</strong></p>
@@ -535,31 +435,40 @@
       <input type="file" id="file-input" accept="image/*" multiple>
     </div>
 
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-text">uploaded photos</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Image list -->
     <div id="image-list"></div>
+
   </div>
 
-  <!-- RIGHT — glass panel (GlassEffectContainer) -->
-  <div id="right" class="glass glass-panel">
-    <div class="panel-header">
-      <span class="panel-label">Extracted Text</span>
-      <!-- .buttonStyle(.glassProminent) -->
-      <button id="copy-all-btn" class="btn-glass btn-glass-prominent" style="display:none">Copy All</button>
+  <!-- ════════ RIGHT — accent panel ════════ -->
+  <div id="right">
+
+    <div class="right-top">
+      <span class="right-label">Extracted Text</span>
+      <button id="copy-all-btn">Copy All</button>
     </div>
 
     <div id="text-list">
       <div class="empty-state" id="empty-state">
-        <div class="empty-orb">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect x="4" y="6" width="24" height="20" rx="4" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
-            <path d="M8 13h16M8 18h11M8 23h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color:var(--accent)"/>
+        <div class="empty-icon-wrap">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+            <rect x="4" y="5" width="22" height="20" rx="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+            <path d="M8 12h14M8 17h10M8 22h6" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <p>Extracted text will appear here<br>once you upload photos.</p>
       </div>
     </div>
+
   </div>
 
-</main>
+</div><!-- /.card -->
 
 <script>
   const dropZone   = document.getElementById('drop-zone');
@@ -576,7 +485,6 @@
   let jobCounter = 0;
   let isDark = false;
 
-  // ── Theme toggle (.interactive() tint switch) ──
   themeBtn.addEventListener('click', () => {
     isDark = !isDark;
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
@@ -584,7 +492,6 @@
     themeLabel.textContent = isDark ? 'Dark' : 'Light';
   });
 
-  // ── Drop zone ──
   browseLink.addEventListener('click', e => { e.stopPropagation(); fileInput.click(); });
   dropZone.addEventListener('click', () => fileInput.click());
   dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -608,21 +515,20 @@
     const url  = URL.createObjectURL(file);
     const name = file.name.length > 26 ? file.name.slice(0, 23) + '…' : file.name;
 
-    // ── Image card (morphing entrance via cardIn keyframe) ──
     const card = document.createElement('div');
     card.className = 'image-card';
     card.id = `card-${id}`;
-    card.style.animationDelay = '0ms';
     card.innerHTML = `
       <div class="progress-wrap"><div class="progress-bar" id="pb-${id}" style="width:0%"></div></div>
       <img src="${url}" alt="${name}">
       <div class="card-footer">
         <span class="filename">${name}</span>
-        <span class="badge processing" id="badge-${id}"><span class="spinner"></span> Processing</span>
+        <span class="badge processing" id="badge-${id}">
+          <span class="spinner spinner-dark"></span> Processing
+        </span>
       </div>`;
     imageList.appendChild(card);
 
-    // ── Text block (same morphing entrance, slight delay for stagger) ──
     const block = document.createElement('div');
     block.className = 'text-block';
     block.id = `block-${id}`;
@@ -637,17 +543,13 @@
       </div>`;
     textList.appendChild(block);
 
-    // ── Tesseract OCR ──
     Tesseract.recognize(file, 'eng', {
       logger: m => {
-        if (m.status === 'recognizing text') {
+        if (m.status === 'recognizing text')
           document.getElementById(`pb-${id}`).style.width = Math.round(m.progress * 100) + '%';
-        }
       }
     }).then(({ data: { text } }) => {
       const cleaned = text.trim();
-
-      // Badge → tinted green capsule (.tint(.green))
       const badge = document.getElementById(`badge-${id}`);
       badge.className = 'badge done';
       badge.innerHTML = '&#10003; Done';
@@ -656,19 +558,17 @@
       const ta = document.createElement('textarea');
       ta.id    = `ta-${id}`;
       ta.value = cleaned || '(No text detected)';
-      ta.rows  = Math.max(4, Math.min(cleaned.split('\n').length + 2, 14));
+      ta.rows  = Math.max(4, Math.min(cleaned.split('\n').length + 2, 12));
       document.getElementById(`placeholder-${id}`).replaceWith(ta);
 
       const btn = document.getElementById(`copybtn-${id}`);
       btn.disabled = false;
       btn.addEventListener('click', () => copyText(ta.value, btn));
-
     }).catch(err => {
       console.error(err);
-      const badge = document.getElementById(`badge-${id}`);
-      badge.className = 'badge error';
-      badge.innerHTML = '&#9888; Error';
-      document.getElementById(`placeholder-${id}`).textContent = 'Could not extract text from this image.';
+      document.getElementById(`badge-${id}`).className = 'badge error';
+      document.getElementById(`badge-${id}`).innerHTML = '&#9888; Error';
+      document.getElementById(`placeholder-${id}`).textContent = 'Could not extract text.';
     });
   }
 
@@ -683,7 +583,7 @@
 
   copyAllBtn.addEventListener('click', () => {
     const all = [...document.querySelectorAll('textarea')]
-      .map((ta, i) => `[Image ${i + 1}]\n${ta.value}`)
+      .map((ta, i) => `[Image ${i+1}]\n${ta.value}`)
       .join('\n\n---\n\n');
     copyText(all, copyAllBtn);
     copyAllBtn.textContent = 'Copied All!';
